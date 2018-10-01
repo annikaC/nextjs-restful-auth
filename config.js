@@ -1,3 +1,3 @@
 module.exports = {
-  API: 'http://localhost:8000',
+  API: 'http://intranet.docker.localhost',
 };

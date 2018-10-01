@@ -20,7 +20,7 @@ class Signin extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.authenticate({email: this.state.email, password: this.state.password}, 'signin');
+    this.props.authenticate({email: this.state.email, password: this.state.password}, 'api/v1.1/auth');
   }
 
   render() {
@@ -36,7 +36,7 @@ class Signin extends React.Component {
             <p className="control has-icons-left has-icons-right">
               <input
                 className="input"
-                type="email"
+                type="text"
                 placeholder="Email"
                 required
                 value={this.state.email}

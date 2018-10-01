@@ -6,15 +6,16 @@ import { setCookie, removeCookie } from '../../utils/cookie';
 
 // gets token from the api and stores it in the redux store and in cookie
 const authenticate = ({ email, password }, type) => {
-  if (type !== 'signin' && type !== 'signup') {
-    throw new Error('Wrong API call!');
-  }
+  // if (type !== 'signin' && type !== 'signup') {
+  //   throw new Error('Wrong API call!');
+  // }
+  let base64 = new Buffer(email + ':' + password, 'utf8').toString('base64');
   return (dispatch) => {
-    axios.post(`${API}/${type}`, { email, password })
+    axios.get(`${API}/${type}`, { headers: { Authorization: 'Basic ' + base64 } })
       .then((response) => {
-        setCookie('token', response.data.token);
+        setCookie('token', response.data.access_token);
         Router.push('/');
-        dispatch({type: AUTHENTICATE, payload: response.data.token});
+        dispatch({type: AUTHENTICATE, payload: response.data.access_token});
       })
       .catch((err) => {
         throw new Error(err);
